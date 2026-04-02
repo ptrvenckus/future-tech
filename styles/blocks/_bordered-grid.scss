@@ -43,6 +43,7 @@
     --columns: 3;
     --itemPaddingX: #{rem(50)};
 
+    column-gap: calc(var(--itemPaddingX) * 2);
     @include laptop {
       --itemPaddingX: #{rem(40)};
     }
@@ -52,19 +53,22 @@
         /* elements from 1 and 2 columns */
         &:nth-child(3n - 2), 
         &:nth-child(3n - 1) {
-          padding-right: var(--itemPaddingX);
-          border-right: var(--border);  
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: calc(100% + var(--itemPaddingX));
+            width: rem(1);
+            height: 100%;
+            background-color: var(--color-dark-15);
+          } 
         }
       
         /* elements from 2 column */
         &:nth-child(3n - 1) {
           @include full-vw-centered-line(bottom);
-        }
-
-        /* elements from 2 and 3 columns */
-        &:nth-child(3n - 1), 
-        &:nth-child(3n) {
-          padding-left: var(--itemPaddingX);
         }
       }
     }

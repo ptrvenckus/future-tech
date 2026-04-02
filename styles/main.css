@@ -1554,6 +1554,7 @@ button[aria-label]::before {
 .bordered-grid--3-cols {
   --columns: 3;
   --itemPaddingX: 3.125rem;
+  column-gap: calc(var(--itemPaddingX) * 2);
 }
 @media (width <= 90.06125rem) {
   .bordered-grid--3-cols {
@@ -1565,8 +1566,16 @@ button[aria-label]::before {
     /* elements from 1 and 2 columns */
   }
   .bordered-grid--3-cols .bordered-grid__item:nth-child(3n-2), .bordered-grid--3-cols .bordered-grid__item:nth-child(3n-1) {
-    padding-right: var(--itemPaddingX);
-    border-right: var(--border);
+    position: relative;
+  }
+  .bordered-grid--3-cols .bordered-grid__item:nth-child(3n-2)::after, .bordered-grid--3-cols .bordered-grid__item:nth-child(3n-1)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(100% + var(--itemPaddingX));
+    width: 0.0625rem;
+    height: 100%;
+    background-color: var(--color-dark-15);
   }
   .bordered-grid--3-cols .bordered-grid__item {
     /* elements from 2 column */
@@ -1584,12 +1593,6 @@ button[aria-label]::before {
     width: 100vw;
     height: 0.0625rem;
     background-color: var(--color-dark-15);
-  }
-  .bordered-grid--3-cols .bordered-grid__item {
-    /* elements from 2 and 3 columns */
-  }
-  .bordered-grid--3-cols .bordered-grid__item:nth-child(3n-1), .bordered-grid--3-cols .bordered-grid__item:nth-child(3n) {
-    padding-left: var(--itemPaddingX);
   }
 }
 @media (width <= 63.99875rem) {
@@ -1948,6 +1951,9 @@ button[aria-label]::before {
     border-radius: 0.625rem;
   }
 }
+.video-player__video--small {
+  height: clamp(13rem, 12.9186507937rem + 4.3386243386vw, 18.125rem);
+}
 .video-player__panel {
   position: absolute;
   inset: 0;
@@ -2004,8 +2010,11 @@ button[aria-label]::before {
 }
 
 .video-card {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   row-gap: 1.875rem;
+  height: 100%;
 }
 @media (width <= 90.06125rem) {
   .video-card {
@@ -2015,6 +2024,10 @@ button[aria-label]::before {
 .video-card__body {
   display: grid;
   row-gap: clamp(0.25rem, 0.244047619rem + 0.3174603175vw, 0.625rem);
+  flex-grow: 1;
+}
+.video-card__player {
+  width: 100%;
 }
 
 .table-of-contents {
